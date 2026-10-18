@@ -1,0 +1,19 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "prisma generate && next build",
+  "installCommand": "npm install",
+  "env": {
+    "DATABASE_URL":            "@database_url",
+    "NEXTAUTH_SECRET":         "@nextauth_secret",
+    "NEXTAUTH_URL":            "@nextauth_url",
+    "ANTHROPIC_API_KEY":       "@anthropic_api_key",
+    "NEXT_PUBLIC_APP_NAME":    "N.E.S.T.",
+    "NEXT_PUBLIC_APP_URL":     "@nextauth_url"
+  },
+  "regions": ["iad1"],
+  "functions": {
+    "src/app/api/**/*.ts": {
+      "maxDuration": 30
+    }
+  }
+}

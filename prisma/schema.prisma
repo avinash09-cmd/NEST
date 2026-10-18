@@ -1,0 +1,379 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL")
+}
+
+// ─── ENUMS ────────────────────────────────────────────────────
+
+enum Role {
+  RESIDENT
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum ComplaintStatus {
+  PENDING
+  UNDER_REVIEW
+  IN_PROGRESS
+  RESOLVED
+  REJECTED
+  CLOSED
+}
+
+enum ComplaintCategory {
+  ROAD_DAMAGE
+  STREET_LIGHTING
+  GARBAGE_COLLECTION
+  WATER_SUPPLY
+  SEWAGE_DRAINAGE
+  NOISE_POLLUTION
+  PUBLIC_SAFETY
+  PARK_MAINTENANCE
+  ILLEGAL_DUMPING
+  BUILDING_HAZARD
+  ANIMAL_CONTROL
+  OTHER
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum AlertType {
+  WEATHER
+  POWER_OUTAGE
+  ROAD_CLOSURE
+  PUBLIC_HEALTH
+  SECURITY
+  EVACUATION
+  FLOOD
+  FIRE
+  EARTHQUAKE
+  WATER_SUPPLY
+  GENERAL
+}
+
+enum AlertStatus {
+  DRAFT
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
+
+enum EmergencyType {
+  MEDICAL
+  FIRE
+  FLOOD
+  EARTHQUAKE
+  CRIME
+  INFRASTRUCTURE
+  OTHER
+}
+
+enum EmergencyStatus {
+  REPORTED
+  DISPATCHED
+  ACTIVE
+  CONTAINED
+  RESOLVED
+}
+
+enum WaterQualityStatus {
+  SAFE
+  CAUTION
+  UNSAFE
+  CRITICAL
+}
+
+enum SentimentLabel {
+  POSITIVE
+  NEUTRAL
+  NEGATIVE
+  VERY_NEGATIVE
+}
+
+// ─── USER & AUTH ──────────────────────────────────────────────
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  role          Role      @default(RESIDENT)
+  phone         String?
+  address       String?
+  neighborhood  String?
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts      Account[]
+  sessions      Session[]
+  complaints    Complaint[]
+  comments      ComplaintComment[]
+  alerts        Alert[]            @relation("AlertCreator")
+  notifications Notification[]
+  emergencies   Emergency[]
+  chatMessages  ChatMessage[]
+
+  @@index([email])
+  @@index([role])
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// ─── COMPLAINTS ───────────────────────────────────────────────
+
+model Complaint {
+  id             String            @id @default(cuid())
+  ticketNumber   String            @unique
+  title          String
+  description    String            @db.Text
+  category       ComplaintCategory
+  status         ComplaintStatus   @default(PENDING)
+  priority       Priority          @default(MEDIUM)
+  location       String
+  latitude       Float?
+  longitude      Float?
+  attachments    String[]
+  isAnonymous    Boolean           @default(false)
+  aiCategory     String?
+  aiCategoryConf Float?
+  sentimentLabel SentimentLabel?
+  sentimentScore Float?
+  riskScore      Float?
+  aiSummary      String?           @db.Text
+  userId         String
+  assignedToId   String?
+  user           User              @relation(fields: [userId], references: [id])
+  comments       ComplaintComment[]
+  resolvedAt     DateTime?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  @@index([status])
+  @@index([category])
+  @@index([priority])
+  @@index([userId])
+  @@index([ticketNumber])
+  @@index([createdAt])
+  @@map("complaints")
+}
+
+model ComplaintComment {
+  id          String    @id @default(cuid())
+  content     String    @db.Text
+  isInternal  Boolean   @default(false)
+  complaintId String
+  userId      String
+  complaint   Complaint @relation(fields: [complaintId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([complaintId])
+  @@map("complaint_comments")
+}
+
+// ─── SUGGESTIONS ──────────────────────────────────────────────
+
+model Suggestion {
+  id             String         @id @default(cuid())
+  title          String
+  content        String         @db.Text
+  category       String
+  isReviewed     Boolean        @default(false)
+  adminNotes     String?        @db.Text
+  sentimentLabel SentimentLabel?
+  sentimentScore Float?
+  aiSummary      String?        @db.Text
+  ipHash         String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@index([isReviewed])
+  @@index([createdAt])
+  @@map("suggestions")
+}
+
+// ─── ALERTS & NOTIFICATIONS ───────────────────────────────────
+
+model Alert {
+  id            String        @id @default(cuid())
+  title         String
+  message       String        @db.Text
+  type          AlertType
+  status        AlertStatus   @default(DRAFT)
+  priority      Priority      @default(MEDIUM)
+  neighborhood  String?
+  expiresAt     DateTime?
+  createdById   String
+  createdBy     User          @relation("AlertCreator", fields: [createdById], references: [id])
+  notifications Notification[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([status])
+  @@index([type])
+  @@index([createdAt])
+  @@map("alerts")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  message   String   @db.Text
+  isRead    Boolean  @default(false)
+  userId    String
+  alertId   String?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  alert     Alert?   @relation(fields: [alertId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+
+  @@index([userId, isRead])
+  @@index([userId])
+  @@map("notifications")
+}
+
+// ─── EMERGENCY ────────────────────────────────────────────────
+
+model Emergency {
+  id           String          @id @default(cuid())
+  title        String
+  description  String          @db.Text
+  type         EmergencyType
+  status       EmergencyStatus @default(REPORTED)
+  severity     Priority        @default(HIGH)
+  location     String
+  latitude     Float?
+  longitude    Float?
+  affectedArea String?
+  contactName  String?
+  contactPhone String?
+  reportedById String
+  reportedBy   User            @relation(fields: [reportedById], references: [id])
+  resolvedAt   DateTime?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  @@index([status])
+  @@index([type])
+  @@index([severity])
+  @@index([createdAt])
+  @@map("emergencies")
+}
+
+// ─── WATER QUALITY ────────────────────────────────────────────
+
+model WaterQualityReading {
+  id           String             @id @default(cuid())
+  location     String
+  zone         String
+  status       WaterQualityStatus @default(SAFE)
+  ph           Float
+  turbidity    Float
+  chlorine     Float
+  tds          Float
+  temperature  Float
+  dissolvedO2  Float?
+  conductivity Float?
+  hardness     Float?
+  nitrates     Float?
+  bacteria     Boolean            @default(false)
+  collectedBy  String?
+  notes        String?            @db.Text
+  recordedAt   DateTime           @default(now())
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+
+  @@index([zone])
+  @@index([status])
+  @@index([recordedAt])
+  @@map("water_quality_readings")
+}
+
+// ─── AI CHAT ──────────────────────────────────────────────────
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  role      String
+  content   String   @db.Text
+  userId    String
+  sessionId String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@index([userId, sessionId])
+  @@index([sessionId])
+  @@map("chat_messages")
+}
+
+// ─── AUDIT LOG ────────────────────────────────────────────────
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  action     String
+  entityType String
+  entityId   String
+  actorId    String?
+  before     Json?
+  after      Json?
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@index([actorId])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
