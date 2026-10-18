@@ -1,0 +1,116 @@
+<svg width="1280" height="720" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#f8fafc"/>
+  <!-- Sidebar -->
+  <rect x="0" y="0" width="240" height="720" fill="#0f172a"/>
+  <rect x="16" y="16" width="32" height="32" rx="8" fill="#3b82f6"/>
+  <text x="32" y="37" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">N</text>
+  <text x="58" y="35" font-family="Arial" font-size="13" font-weight="bold" fill="white">N.E.S.T.</text>
+  <line x1="0" y1="68" x2="240" y2="68" stroke="#1e293b" stroke-width="1"/>
+  <rect x="12" y="80" width="216" height="36" rx="8" fill="#3b82f6"/>
+  <text x="44" y="103" font-family="Arial" font-size="13" font-weight="bold" fill="white">Dashboard</text>
+  <text x="84" y="140" font-family="Arial" font-size="13" fill="#64748b">Complaints</text>
+  <text x="84" y="176" font-family="Arial" font-size="13" fill="#64748b">Suggestions</text>
+  <text x="84" y="212" font-family="Arial" font-size="13" fill="#64748b">Alerts</text>
+  <text x="84" y="248" font-family="Arial" font-size="13" fill="#64748b">Emergency</text>
+  <text x="84" y="284" font-family="Arial" font-size="13" fill="#64748b">Water Quality</text>
+
+  <!-- Main blurred dashboard in background -->
+  <rect x="240" y="0" width="1040" height="56" fill="white"/>
+  <line x1="240" y1="56" x2="1280" y2="56" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="260" y="28" font-family="Arial" font-size="18" font-weight="bold" fill="#0f172a">Good morning, Admin 👋</text>
+  <text x="260" y="44" font-family="Arial" font-size="12" fill="#94a3b8">Here's what's happening in your neighborhood today</text>
+
+  <!-- Stats faded in background -->
+  <rect x="260" y="76" width="230" height="90" rx="12" fill="#3b82f6" opacity="0.3"/>
+  <rect x="506" y="76" width="230" height="90" rx="12" fill="#f59e0b" opacity="0.3"/>
+  <rect x="752" y="76" width="230" height="90" rx="12" fill="#22c55e" opacity="0.3"/>
+  <rect x="998" y="76" width="230" height="90" rx="12" fill="#ef4444" opacity="0.3"/>
+
+  <!-- Overlay dimmer -->
+  <rect x="240" y="0" width="1040" height="720" fill="#00000015"/>
+
+  <!-- CHAT WINDOW -->
+  <rect x="880" y="160" width="360" height="520" rx="16" fill="white" stroke="#e2e8f0" stroke-width="1" filter="drop-shadow(0 20px 40px rgba(0,0,0,0.15))"/>
+
+  <!-- Chat header -->
+  <rect x="880" y="160" width="360" height="56" rx="16" fill="url(#chatgrad)"/>
+  <defs>
+    <linearGradient id="chatgrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2563eb"/>
+      <stop offset="100%" style="stop-color:#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <!-- Fix bottom corners of header -->
+  <rect x="880" y="192" width="360" height="24" fill="#2563eb"/>
+
+  <circle cx="908" cy="188" r="14" fill="#ffffff30"/>
+  <text x="908" y="194" font-family="Arial" font-size="14" fill="white" text-anchor="middle">🤖</text>
+  <text x="932" y="182" font-family="Arial" font-size="13" font-weight="bold" fill="white">N.E.S.T. Assistant</text>
+  <circle cx="932" cy="193" r="4" fill="#86efac"/>
+  <text x="944" y="197" font-family="Arial" font-size="10" fill="#bfdbfe">Online · AI powered</text>
+  <text x="1204" y="188" font-family="Arial" font-size="16" fill="#ffffff80" text-anchor="middle">−</text>
+  <text x="1224" y="188" font-family="Arial" font-size="14" fill="#ffffff80" text-anchor="middle">×</text>
+
+  <!-- Messages -->
+  <!-- Bot welcome -->
+  <circle cx="900" cy="240" r="13" fill="#dbeafe"/>
+  <text x="900" y="246" font-family="Arial" font-size="12" fill="#3b82f6" text-anchor="middle">🤖</text>
+  <rect x="920" y="224" width="260" height="52" rx="12" fill="#f1f5f9"/>
+  <text x="932" y="242" font-family="Arial" font-size="11" fill="#0f172a">Hi Admin! 👋 I'm the N.E.S.T.</text>
+  <text x="932" y="258" font-family="Arial" font-size="11" fill="#0f172a">Assistant. How can I help you</text>
+  <text x="932" y="274" font-family="Arial" font-size="11" fill="#0f172a">with neighborhood safety today?</text>
+
+  <!-- User message -->
+  <rect x="900" y="290" width="246" height="34" rx="12" fill="#3b82f6"/>
+  <text x="916" y="311" font-family="Arial" font-size="11" fill="white">How many complaints are pending?</text>
+
+  <!-- Bot response -->
+  <circle cx="900" cy="356" r="13" fill="#dbeafe"/>
+  <text x="900" y="362" font-family="Arial" font-size="12" fill="#3b82f6" text-anchor="middle">🤖</text>
+  <rect x="920" y="340" width="280" height="68" rx="12" fill="#f1f5f9"/>
+  <text x="932" y="358" font-family="Arial" font-size="11" fill="#0f172a">There are currently</text>
+  <text x="1010" y="358" font-family="Arial" font-size="12" font-weight="bold" fill="#3b82f6">23 pending</text>
+  <text x="932" y="376" font-family="Arial" font-size="11" fill="#0f172a">complaints awaiting review. The</text>
+  <text x="932" y="394" font-family="Arial" font-size="11" fill="#0f172a">highest risk one is about a sewage issue.</text>
+
+  <!-- User message 2 -->
+  <rect x="890" y="424" width="256" height="34" rx="12" fill="#3b82f6"/>
+  <text x="906" y="445" font-family="Arial" font-size="11" fill="white">Show me active water quality alerts</text>
+
+  <!-- Bot response 2 -->
+  <circle cx="900" cy="488" r="13" fill="#dbeafe"/>
+  <text x="900" y="494" font-family="Arial" font-size="12" fill="#3b82f6" text-anchor="middle">🤖</text>
+  <rect x="920" y="472" width="290" height="82" rx="12" fill="#f1f5f9"/>
+  <text x="932" y="490" font-family="Arial" font-size="11" fill="#0f172a">Zone D (West Pump Station) is</text>
+  <text x="932" y="506" font-family="Arial" font-size="11" fill="#0f172a">currently flagged as</text>
+  <text x="1036" y="506" font-family="Arial" font-size="12" font-weight="bold" fill="#ef4444">UNSAFE</text>
+  <text x="932" y="522" font-family="Arial" font-size="11" fill="#0f172a">with high TDS and low chlorine.</text>
+  <text x="932" y="538" font-family="Arial" font-size="11" fill="#3b82f6">→ Go to Water Quality page</text>
+
+  <!-- Typing indicator -->
+  <circle cx="900" cy="578" r="13" fill="#dbeafe"/>
+  <text x="900" y="584" font-family="Arial" font-size="12" fill="#3b82f6" text-anchor="middle">🤖</text>
+  <rect x="920" y="566" width="72" height="32" rx="16" fill="#f1f5f9"/>
+  <circle cx="936" cy="582" r="4" fill="#94a3b8">
+    <animate attributeName="opacity" values="0.3;1;0.3" dur="1s" begin="0s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="952" cy="582" r="4" fill="#94a3b8">
+    <animate attributeName="opacity" values="0.3;1;0.3" dur="1s" begin="0.3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="968" cy="582" r="4" fill="#94a3b8">
+    <animate attributeName="opacity" values="0.3;1;0.3" dur="1s" begin="0.6s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Input bar -->
+  <rect x="880" y="622" width="360" height="58" rx="0" fill="white"/>
+  <line x1="880" y1="622" x2="1240" y2="622" stroke="#f1f5f9" stroke-width="1"/>
+  <rect x="892" y="634" width="272" height="34" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="904" y="655" font-family="Arial" font-size="11" fill="#94a3b8">Ask anything about N.E.S.T....</text>
+  <rect x="1176" y="634" width="34" height="34" rx="8" fill="#3b82f6"/>
+  <text x="1193" y="655" font-family="Arial" font-size="14" fill="white" text-anchor="middle">➤</text>
+
+  <!-- Floating button (minimized state indicator) -->
+  <circle cx="830" cy="685" r="26" fill="#3b82f6" filter="drop-shadow(0 4px 12px #3b82f650)"/>
+  <text x="830" y="692" font-family="Arial" font-size="18" fill="white" text-anchor="middle">💬</text>
+  <circle cx="848" cy="663" r="8" fill="#22c55e" stroke="white" stroke-width="2"/>
+</svg>

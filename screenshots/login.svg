@@ -1,0 +1,69 @@
+<svg width="1280" height="720" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc"/>
+      <stop offset="100%" style="stop-color:#e2e8f0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+
+  <!-- Left decorative panel -->
+  <rect x="0" y="0" width="560" height="720" fill="#0f172a"/>
+  <pattern id="dotgrid" width="30" height="30" patternUnits="userSpaceOnUse">
+    <circle cx="15" cy="15" r="1.5" fill="#ffffff08"/>
+  </pattern>
+  <rect x="0" y="0" width="560" height="720" fill="url(#dotgrid)"/>
+
+  <!-- Left side branding -->
+  <rect x="60" y="80" width="48" height="48" rx="14" fill="#3b82f6"/>
+  <text x="84" y="113" font-family="Arial" font-size="26" font-weight="bold" fill="white" text-anchor="middle">N</text>
+  <text x="60" y="168" font-family="Arial" font-size="36" font-weight="bold" fill="white">N.E.S.T.</text>
+  <text x="60" y="198" font-family="Arial" font-size="16" fill="#64748b">Neighborhood Emergency</text>
+  <text x="60" y="220" font-family="Arial" font-size="16" fill="#64748b">and Safety Tool</text>
+
+  <!-- Feature list -->
+  <text x="60" y="290" font-family="Arial" font-size="13" fill="#94a3b8">✦  AI-powered complaint classification</text>
+  <text x="60" y="318" font-family="Arial" font-size="13" fill="#94a3b8">✦  Real-time emergency management</text>
+  <text x="60" y="346" font-family="Arial" font-size="13" fill="#94a3b8">✦  Water quality zone monitoring</text>
+  <text x="60" y="374" font-family="Arial" font-size="13" fill="#94a3b8">✦  Neighborhood-wide alert system</text>
+  <text x="60" y="402" font-family="Arial" font-size="13" fill="#94a3b8">✦  Role-based admin controls</text>
+
+  <!-- Status -->
+  <rect x="60" y="620" width="160" height="32" rx="16" fill="#22c55e20" stroke="#22c55e40" stroke-width="1"/>
+  <circle cx="80" cy="636" r="5" fill="#22c55e"/>
+  <text x="120" y="640" font-family="Arial" font-size="12" fill="#22c55e" text-anchor="middle">System online</text>
+
+  <!-- RIGHT - Login form -->
+  <rect x="680" y="160" width="440" height="420" rx="20" fill="white" stroke="#e2e8f0" stroke-width="1" filter="drop-shadow(0 4px 24px rgba(0,0,0,0.08))"/>
+
+  <!-- Form header -->
+  <rect x="796" y="196" width="48" height="48" rx="14" fill="#3b82f6"/>
+  <text x="820" y="228" font-family="Arial" font-size="26" font-weight="bold" fill="white" text-anchor="middle">N</text>
+  <text x="900" y="216" font-family="Arial" font-size="22" font-weight="bold" fill="#0f172a" text-anchor="middle">Welcome back</text>
+  <text x="900" y="238" font-family="Arial" font-size="13" fill="#94a3b8" text-anchor="middle">Sign in to your N.E.S.T. account</text>
+
+  <!-- Email field -->
+  <text x="700" y="280" font-family="Arial" font-size="13" font-weight="bold" fill="#374151">Email address</text>
+  <rect x="700" y="288" width="400" height="42" rx="8" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.5"/>
+  <text x="716" y="313" font-family="Arial" font-size="13" fill="#9ca3af">admin@nest.gov</text>
+
+  <!-- Password field -->
+  <text x="700" y="352" font-family="Arial" font-size="13" font-weight="bold" fill="#374151">Password</text>
+  <rect x="700" y="360" width="400" height="42" rx="8" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.5"/>
+  <text x="716" y="385" font-family="Arial" font-size="13" fill="#9ca3af">••••••••</text>
+  <text x="1078" y="385" font-family="Arial" font-size="14" fill="#94a3b8" text-anchor="middle">👁</text>
+
+  <!-- Sign in button -->
+  <rect x="700" y="424" width="400" height="44" rx="8" fill="#3b82f6"/>
+  <text x="900" y="450" font-family="Arial" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Sign in</text>
+
+  <!-- Demo credentials box -->
+  <rect x="700" y="484" width="400" height="70" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="716" y="504" font-family="Arial" font-size="11" font-weight="bold" fill="#475569">Demo credentials</text>
+  <text x="716" y="524" font-family="Courier New" font-size="11" fill="#64748b">Admin: admin@nest.gov / Admin@123</text>
+  <text x="716" y="542" font-family="Courier New" font-size="11" fill="#64748b">Resident: resident@nest.gov / Resident@123</text>
+
+  <!-- Register link -->
+  <text x="900" y="606" font-family="Arial" font-size="13" fill="#64748b" text-anchor="middle">Don't have an account?</text>
+  <text x="1006" y="606" font-family="Arial" font-size="13" fill="#3b82f6">Register here</text>
+</svg>
